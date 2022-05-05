@@ -1,11 +1,14 @@
 <template>
     <div class="home">
-        <h1>{{ msg }}</h1>
-        <p>Welcome to your new single-page application, built with <a href="https://vuejs.org" target="_blank">Vue.js</a>.</p>
+        <h1>HOME</h1>
+        <router-link to="/examinations">Sınav Listesi</router-link>
+        <router-link to="/logout">Çıkış</router-link>
+        <!--<p>Welcome to your new single-page application, built with <a href="https://vuejs.org" target="_blank">Vue.js</a>.</p>-->
     </div>
 </template>
 
 <script>
+    
     import axios from 'axios'
     export default {
         name: 'Home',

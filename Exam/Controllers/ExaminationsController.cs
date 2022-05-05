@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Exam.Dto.Forms;
+using Exam.Dto.Results;
+using Exam.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,29 +20,31 @@ namespace Exam.Controllers
     {
         // GET: api/<ExaminationsController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<ExaminationSummary> Get()
         {
-            return new string[] { "value1", "value2" };
+            return Examination.All().ToArray().Select(x => new ExaminationSummary(x));
         }
 
         // GET api/<ExaminationsController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public ExaminationForm Get(ObjectId id)
         {
-            return "value";
+            var examination = Examination.Find(id);
+
+            if (examination == null)
+                return null;
+
+            return new ExaminationForm(examination);
         }
 
         // POST api/<ExaminationsController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] ExaminationForm value)
         {
+            var examination = value.GetBinded();
+            examination.Save();
         }
 
-        // PUT api/<ExaminationsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
 
         // DELETE api/<ExaminationsController>/5
         [HttpDelete("{id}")]

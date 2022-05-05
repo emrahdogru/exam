@@ -21,6 +21,7 @@ namespace Exam.Models
         [BsonElement]
         internal ObjectId CorrectChoiceId { get; set; }
 
+        [BsonIgnore]
         public Choice CorrectChoice
         {
             get

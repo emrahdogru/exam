@@ -26,7 +26,10 @@ namespace Exam.Data
             }
             set
             {
-                _id = value;
+                if (value == ObjectId.Empty)
+                    _id = ObjectId.GenerateNewId();
+                else
+                    _id = value;
             }
         }
 
@@ -90,7 +93,9 @@ namespace Exam.Data
 
         public static T Find(string id)
         {
-            return Find(ObjectId.Parse(id));
+            if(ObjectId.TryParse(id, out ObjectId oid))
+                return Find(oid);
+            return null;
         }
 
         /// <summary>

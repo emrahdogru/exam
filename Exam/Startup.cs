@@ -41,7 +41,10 @@ namespace Exam
             {
                 options.AddDefaultPolicy(policy =>
                 {
-                    policy.WithOrigins("http://localhost:8082");
+                    // TODO:  Özelleştir!
+                    policy.AllowAnyOrigin();
+                    policy.AllowAnyMethod();
+                    policy.AllowAnyHeader();
                 });
             });
 

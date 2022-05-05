@@ -1,4 +1,5 @@
 ﻿using Exam.Data;
+using Exam.Data.Db;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Exam.Models
 {
+    [Db("Examination")]
     public class Examination : Entity<Examination>
     {
         public string Title { get; set; }
