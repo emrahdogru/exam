@@ -17,11 +17,11 @@ namespace Exam.Dto.Results
             this.examination = examination;
         }
 
-        public ObjectId Id
+        public string Id
         {
             get
             {
-                return examination.Id;
+                return examination.Id.ToString();
             }
         }
 

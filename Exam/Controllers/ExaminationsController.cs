@@ -48,8 +48,11 @@ namespace Exam.Controllers
 
         // DELETE api/<ExaminationsController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(string id)
         {
+            var examination = Examination.Find(id);
+
+            examination.Remove();
         }
     }
 }

@@ -29,6 +29,11 @@ const routes = [
         path: '/newexamination',
         component: () => import('../views/ExaminationNew.vue')
     },
+    {
+        name: 'examine',
+        path: '/examine/:id',
+        component: () => import('../views/Examine.vue')
+    },
 ]
 
 const router = new VueRouter({

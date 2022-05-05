@@ -16,8 +16,8 @@
                 </thead>
                 <tbody v-if="list.length">
                     <tr v-for="e in list" :key="e.Id">
-                        <td><router-link to="detay">{{e.title}}</router-link></td>
-                        <td class="text-right"><router-link to="sil">Sil</router-link></td>
+                        <td><router-link :to="'/examine/' + e.id">{{e.title}}</router-link></td>
+                        <td class="text-right"><button class="btn btn-link" type="button" @click="remove(e)">Sil</button></td>
                     </tr>
                 </tbody>
                 <tbody v-else>
@@ -44,14 +44,32 @@
             }
         },
         created() {
-            axios.get('api/examinations')
-                .then(x => {
-                    this.list = x.data;
-                })
-                .catch(x => {
-                    console.error(x);
-                    this.error = 'Sınav listesi yüklenemedi.';
-                })
+            this.getList();
+        },
+        methods: {
+            getList() {
+                axios.get('api/examinations')
+                    .then(x => {
+                        this.list = x.data;
+                    })
+                    .catch(x => {
+                        console.error(x);
+                        this.error = 'Sınav listesi yüklenemedi.';
+                    })
+            },
+            remove(exam) {
+                if (confirm('Sınavı silinecek: ' + exam.title)) {
+                    axios.delete('api/examinations/' + exam.id)
+                        .then(x => {
+                            console.log(x);
+                            this.getList();
+                        })
+                        .catch(x => {
+                            console.error(x);
+                            alert('Sınav silinemedi.');
+                        })
+                }
+            }
         }
     }
 </script>
